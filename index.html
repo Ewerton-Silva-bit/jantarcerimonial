@@ -1,588 +1,373 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jantar Cerimonial | Louise & Ewerton</title>
-  
-  <!-- Google Fonts: Playfair Display & Montserrat -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jantar Cerimonial | Louise & Ewerton</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
 
-  <style>
-    :root {
-      --bg-navy: #0A1128;
-      --bg-card: #101B3B;
-      --text-gold: #D4AF37;
-      --text-light: #F0F4F8;
-      --text-muted: #A0AEC0;
-      --border-gold: rgba(212, 175, 55, 0.3);
-      --wood-gold: #C5A059;
-      --wood-hover: #E5C158;
-      --font-heading: 'Playfair Display', serif;
-      --font-body: 'Montserrat', sans-serif;
-    }
+        /* Card de Vidro Luxuoso */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        .glass-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.08);
+        }
 
-    body {
-      background-color: var(--bg-navy);
-      color: var(--text-light);
-      font-family: var(--font-body);
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 15px 60px 15px;
-    }
-
-    /* HEADER & LOGO */
-    header {
-      text-align: center;
-      padding: 20px 20px 30px 20px;
-      max-width: 700px;
-      width: 100%;
-    }
-
-    .logo-container {
-      margin-bottom: 20px;
-    }
-
-    .logo-img {
-      max-width: 260px;
-      width: 100%;
-      height: auto;
-      filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5));
-    }
-
-    header .subtitle {
-      font-size: 0.85rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--text-gold);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    header h1 {
-      font-family: var(--font-heading);
-      font-size: 2.8rem;
-      font-weight: 400;
-      color: #FFFFFF;
-      margin-bottom: 10px;
-    }
-
-    header p.description {
-      font-size: 1rem;
-      color: var(--text-muted);
-      font-weight: 300;
-    }
-
-    .divider {
-      width: 70px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--text-gold), transparent);
-      margin: 25px auto;
-    }
-
-    /* CONTAINER PRINCIPAL */
-    .container {
-      max-width: 1000px;
-      width: 100%;
-    }
-
-    /* CARDS */
-    .section-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 35px 25px;
-      margin-bottom: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: 1.9rem;
-      text-align: center;
-      margin-bottom: 8px;
-      color: var(--text-gold);
-    }
-
-    .section-subtitle {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 30px;
-    }
-
-    /* FORMULÁRIO RSVP */
-    .rsvp-form {
-      max-width: 450px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-group label {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 15px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-gold);
-      border-radius: 6px;
-      font-size: 1rem;
-      color: #FFF;
-      font-family: var(--font-body);
-      outline: none;
-      transition: all 0.3s;
-    }
-
-    .form-group input:focus {
-      border-color: var(--text-gold);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .error-msg {
-      color: #FF6B6B;
-      font-size: 0.85rem;
-      display: none;
-      margin-top: 2px;
-    }
-
-    .btn-submit {
-      background: linear-gradient(135deg, var(--wood-gold), #9A7B38);
-      color: #0A1128;
-      border: none;
-      padding: 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 10px;
-    }
-
-    .btn-submit:hover {
-      background: linear-gradient(135deg, var(--wood-hover), var(--wood-gold));
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    }
-
-    .success-box {
-      display: none;
-      background-color: rgba(212, 175, 55, 0.15);
-      border: 1px solid var(--text-gold);
-      color: var(--text-gold);
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: 500;
-    }
-
-    /* LISTA DE PRESENTES */
-    .gift-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 25px;
-    }
-
-    .gift-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-gold);
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .gift-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      border-color: var(--text-gold);
-    }
-
-    .gift-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-bottom: 1px solid var(--border-gold);
-    }
-
-    .gift-info {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      justify-content: space-between;
-    }
-
-    .gift-title {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #FFFFFF;
-      margin-bottom: 10px;
-    }
-
-    .gift-price {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-gold);
-      margin-bottom: 15px;
-    }
-
-    .gift-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-gift {
-      flex: 1;
-      background: transparent;
-      color: var(--text-gold);
-      border: 1px solid var(--text-gold);
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-gift:hover {
-      background: var(--text-gold);
-      color: #0A1128;
-    }
-
-    .btn-buy {
-      flex: 1;
-      background: linear-gradient(135deg, var(--wood-gold), #9A7B38);
-      color: #0A1128;
-      border: 1px solid var(--wood-gold);
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-buy:hover {
-      background: linear-gradient(135deg, var(--wood-hover), var(--wood-gold));
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    }
-
-    /* MODAL PIX & PAGAMENTO */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: var(--bg-card);
-      border: 1px solid var(--text-gold);
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 440px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 1.6rem;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
-
-    .modal-close:hover { color: #FFF; }
-
-    .pix-box {
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px dashed var(--text-gold);
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-gold);
-      margin: 15px 0;
-      word-break: break-all;
-    }
-
-    .owner-info {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 15px;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 10px 14px;
-      border-radius: 6px;
-    }
-
-    .btn-copy {
-      background: var(--wood-gold);
-      color: #0A1128;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.85rem;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s;
-    }
-
-    .btn-copy:hover {
-      background: var(--wood-hover);
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 0.9rem;
-      color: var(--text-gold);
-      font-family: var(--font-heading);
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 2.1rem; }
-      .section-card { padding: 25px 15px; }
-      .logo-img { max-width: 200px; }
-      .gift-actions { flex-direction: column; }
-    }
-  </style>
+        /* Iluminação Dourada no Botão */
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.45);
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen bg-[#030712] text-slate-100 antialiased p-4 sm:p-8 md:p-12 relative overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-200">
 
-  <header>
-    <div class="logo-container">
-      <img src="image.png" alt="Louise & Ewerton Logo" class="logo-img">
+    <!-- Ambient Lights (Aura de Fundo) -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-gradient-to-b from-amber-500/15 via-indigo-500/10 to-transparent blur-[160px] pointer-events-none rounded-full"></div>
+
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto glass-card rounded-[2.5rem] overflow-hidden relative z-10 my-4">
+
+        <div class="p-6 sm:p-12 md:p-16 space-y-16">
+            
+            <!-- Hero Section -->
+<header class="text-center space-y-6 max-w-2xl mx-auto">
+    <div class="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium tracking-[0.25em] uppercase">
+        Recepção de Gala
     </div>
-    
-    <div class="subtitle">Convite Especial</div>
-    <h1>Louise & Ewerton</h1>
-    <p class="description">Você é nosso convidado de honra para o nosso Jantar Cerimonial.</p>
-    <div class="divider"></div>
-  </header>
 
-  <div class="container">
+                <!-- Brasão / Logo -->
+               <!-- Brasão / Logo com Fundo Transparente Integrado -->
+              <div class="flex justify-center pt-2">
+                <img 
+                src="image.png" 
+                alt="Logo Chá de Casa Nova - Louise & Ewerton" 
+                class="w-56 sm:w-72 h-auto object-contain mix-blend-screen drop-shadow-[0_10px_20px_rgba(245,158,11,0.15)]"
+                >
+              </div>
 
-    <!-- SEÇÃO 1: CONFIRMAÇÃO DE PRESENÇA -->
-    <section class="section-card">
-      <h2 class="section-title">Confirmação de Presença</h2>
-      <p class="section-subtitle">Por favor, informe seu nome e sobrenome para confirmar sua presença.</p>
+                <h1 class="text-5xl sm:text-7xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 font-serif">
+                    Louise & Ewerton
+                </h1>
 
-      <form id="rsvpForm" class="rsvp-form" onsubmit="validarRSVP(event)">
-        <div class="form-group">
-          <label for="fullName">Nome Completo</label>
-          <input type="text" id="fullName" placeholder="Ex: Maria Silva" autocomplete="off">
-          <div id="nameError" class="error-msg">Por favor, informe seu nome e sobrenome.</div>
+                <!-- Texto Bíblico Substituído -->
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-serif italic max-w-xl mx-auto">
+                    "Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto, e o Santo de Israel o criou."
+                    <span class="block text-xs font-sans not-italic text-amber-400/90 mt-2 tracking-widest uppercase">Isaías 41:20</span>
+                </p>
+            </header>
+
+            <!-- Bento Info Actualized -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div class="p-6 rounded-2xl glass-card flex items-center gap-4 transition-all duration-300">
+                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Data Especial</p>
+                        <p class="text-base font-medium text-slate-100 mt-0.5">08 de Janeiro de 2027 às 09h</p>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl glass-card flex items-center gap-4 transition-all duration-300">
+                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Recepção</p>
+                        <p class="text-base font-medium text-slate-100 mt-0.5">20:00 Horas</p>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl glass-card flex items-center gap-4 transition-all duration-300">
+                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Localização</p>
+                        <p class="text-base font-medium text-slate-100 mt-0.5">Casa da Louise e Ewerton</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RSVP Section -->
+            <div class="rounded-3xl glass-card p-8 sm:p-12 relative overflow-hidden">
+                <div class="max-w-xl mx-auto text-center space-y-6 relative z-10">
+                    <div class="space-y-2">
+                        <h2 class="text-3xl font-serif text-slate-100 tracking-wide">Confirmação de Presença</h2>
+                        <p class="text-xs text-slate-400 font-light">Por favor, informe seu nome completo para confirmar sua presença.</p>
+                    </div>
+
+                    <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-4 pt-2">
+                        <div>
+                            <input 
+                                type="text" 
+                                id="guestName"
+                                placeholder="Nome e Sobrenome (Ex: Maria Silva)"
+                                class="w-full px-5 py-4 rounded-xl bg-black/40 border border-white/10 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all text-sm"
+                            />
+                            <p id="errorMsg" class="text-rose-400 text-xs text-left mt-2 pl-1 font-medium hidden"></p>
+                        </div>
+                        <button 
+                            type="submit"
+                            class="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-semibold text-xs tracking-widest uppercase btn-glow active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                        >
+                            <span>Confirmar Presença</span>
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Contador Regressivo -->
+            <div class="rounded-3xl glass-card p-8 sm:p-10 text-center space-y-6 border-amber-500/20">
+                <div class="space-y-2">
+                    <div class="inline-flex items-center gap-2 text-amber-400 text-[11px] font-semibold uppercase tracking-widest">
+                        <i data-lucide="hourglass" class="w-4 h-4"></i>
+                        <span>Contagem Regressiva</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-serif text-slate-100">Faltam Poucos Dias Para o Grande Dia</h3>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
+                        <span id="cd-days" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Dias</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
+                        <span id="cd-hours" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Horas</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
+                        <span id="cd-minutes" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Minutos</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
+                        <span id="cd-seconds" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Presentes -->
+            <div class="space-y-8">
+                <div class="text-center sm:text-left space-y-2">
+                    <div class="inline-flex items-center gap-2 text-amber-400 text-[11px] font-semibold uppercase tracking-widest">
+                        <i data-lucide="gift" class="w-4 h-4"></i>
+                        <span>Lista de Presentes</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-slate-100">Sugestões de Presentes</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm font-light">Caso deseje nos presentear, selecione uma opção abaixo.</p>
+                </div>
+
+                <!-- Grid de Presentes -->
+                <div id="giftsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
         </div>
 
-        <button type="submit" class="btn-submit">Confirmar Presença</button>
-      </form>
-
-      <div id="successBox" class="success-box">
-        ✓ Presença confirmada! Redirecionando para envio no WhatsApp...
-      </div>
-    </section>
-
-    <!-- SEÇÃO 2: LISTA DE PRESENTES -->
-    <section class="section-card">
-      <h2 class="section-title">Sugestões de Presentes</h2>
-      <p class="section-subtitle">Sua presença é o nosso maior presente. Caso deseje nos presentear, deixamos algumas sugestões abaixo:</p>
-
-      <div class="gift-grid" id="giftGrid">
-        <!-- Renderizado dinamicamente via JS -->
-      </div>
-    </section>
-
-  </div>
-
-  <footer>
-    <p>Toda honra e glória é dada a Deus 2027</p>
-  </footer>
-
-  <!-- MODAL DE PAGAMENTO VIA PIX / MERCADO PAGO -->
-  <div class="modal-overlay" id="pixModal">
-    <div class="modal-content">
-      <span class="modal-close" onclick="fecharModal()">&times;</span>
-      <h3 style="font-family: var(--font-heading); color: var(--text-gold); margin-bottom: 10px;">Presentear com PIX</h3>
-      <p style="font-size: 0.95rem; color: #FFF;" id="modalGiftName">Item escolhido</p>
-      <p style="font-size: 1.2rem; font-weight: 700; color: var(--text-gold); margin-top: 5px;" id="modalGiftPrice">R$ 0,00</p>
-      
-      <div class="pix-box" id="pixKey">039.073.732-19</div>
-
-      <div class="owner-info">
-        <p><strong>Titular:</strong> Louise Naely Ferreira Carneiro</p>
-        <p><strong>Instituição:</strong> Mercado Pago</p>
-        <p><strong>Tipo de Chave:</strong> CPF</p>
-      </div>
-
-      <button class="btn-copy" onclick="copiarPix()">Copiar Chave PIX</button>
+        <!-- Footer -->
+        <footer class="px-6 py-8 border-t border-white/5 bg-black/40 text-center space-y-2 backdrop-blur-md">
+            <p class="text-[11px] text-slate-400 font-serif tracking-[0.2em] uppercase">
+                Toda honra e glória é dada a Deus • 2027
+            </p>
+            <div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
+                <span>Com carinho, Louise & Ewerton</span>
+                <i data-lucide="heart" class="w-3 h-3 text-rose-500/80 fill-rose-500/20"></i>
+            </div>
+        </footer>
     </div>
-  </div>
 
-  <script>
-    // LISTA DE PRESENTES COM IMAGENS E LINKS DE COMPRA ATUALIZADOS
-    const presentes = [
-      { id: 1, nome: "Conjunto de 6 pratos rasos", preco: "R$ 64,99", img: "https://http2.mlstatic.com/D_NQ_NP_2X_609801-MLA114998535180_082026-F.webp", link: "https://mpago.la/26e3Jj3" },
-      { id: 2, nome: "Conjunto de 6 pratos fundos", preco: "R$ 66,99", img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&q=80", link: "https://mpago.la/2BVQNVJ" },
-      { id: 3, nome: "Conjunto de 6 copos baixos 300ml", preco: "R$ 26,00", img: "https://lojakaster.cdn.magazord.com.br/img/2025/02/produto/25140/46243-jogo-de-6-copos-baixo-300ml-karat-pasabahce.png", link: "https://mpago.la/1f6gJzT" },
-      { id: 4, nome: "Conjunto de 6 copos altos", preco: "R$ 36,99", img: "https://down-br.img.susercontent.com/file/br-11134207-820mf-mou127oazp4z76", link: "https://mpago.la/1Kn2gcs" },
-      { id: 5, nome: "Conjunto de 6 copos de vidro 450ml", preco: "R$ 41,80", img: "https://d1ax7qwanmokr7.cloudfront.net/Custom/Content/Products/61/84/6184_jogo-6-copos-de-vidro-alto-rosa-ripado-linhare-450ml_m6_638393719526421260.webp", link: "https://mpago.la/29btsXb" },
-      { id: 6, nome: "Conjunto de 6 taças de vidro 380ml", preco: "R$ 70,15", img: "https://down-br.img.susercontent.com/file/br-11134207-81ztc-mk1oowdk1k3md2", link: "https://mpago.la/2La7NJF" },
-      { id: 7, nome: "Jogo Com 4 Canecas De 260ml", preco: "R$ 77,45", img: "https://mundoza.cdn.magazord.com.br/img/2024/06/produto/11750/4.png?ims=600x600", link: "https://mpago.la/1QGVUiM" },
-      { id: 8, nome: "Conjunto de xícaras com pires 220ml", preco: "R$ 174,21", img: "https://cepilho.com.br/wp-content/uploads/2022/08/DSC_0170-2.jpg", link: "https://mpago.la/1zGSD94" },
-      { id: 9, nome: "Conjunto mesa posta em acrílico", preco: "R$ 90,58", img: "https://http2.mlstatic.com/D_NQ_NP_946231-MLB110939039648_052026-O-kit-5-boleira-ctampa-mesa-posta-glamour-acrilico--plasutil.webp", link: "https://mpago.la/2fM5Rbz" },
-      { id: 10, nome: "Conjunto faqueiro (prata) Tramontina", preco: "R$ 59,81", img: "https://cdn.awsli.com.br/1354/1354913/produto/101255991bd97fe9b21.jpg", link: "https://mpago.la/1NGkFds" },
-      { id: 11, nome: "Jogo de sobremesas", preco: "R$ 27,99", img: "https://acdn-us.mitiendanube.com/stores/001/697/998/products/6713569a-6448-4e89-9782-5a035f15b83d-a62461536c7c3970e517150295058500-480-0.webp", link: "https://mpago.la/2yWwN1o" },
-      { id: 12, nome: "Conjunto de potes herméticos para mantimentos", preco: "R$ 112,81", img: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m1u4cywv42i2bd", link: "https://mpago.la/2P8VG35" },
-      { id: 13, nome: "Conjunto de potes herméticos de vidro (para comida)", preco: "R$ 92,45", img: "https://cdn.noxcommerce.com.br/media/mixutilidades/catalogo/produto/c/o/conjunto-3-potes-hermeticos-de-vidro-370-640-1000ml-classic-kitchen-1-cda681c2c6.webp", link: "https://mpago.la/2P7ZkyH" },
-      { id: 14, nome: "Kit 10 potes transparentes 500ml", preco: "R$ 35,99", img: "https://m.media-amazon.com/images/I/51P6HtzVwQL._AC_UF894,1000_QL80_.jpg", link: "https://mpago.la/2P9fUVc" },
-      { id: 15, nome: "Conjunto porta condimentos", preco: "R$ 35,99", img: "https://images.tcdn.com.br/img/img_prod/841126/kit_porta_temperos_com_16_potes_e_base_giratoria_em_inox_rose_15381_2_47a463a9d5a2249d562d5edbbd2896c1.jpg", link: "https://mpago.la/2sefovK" },
-      { id: 16, nome: "Conjunto de descanso de panelas", preco: "R$ 32,95", img: "https://designecasa.com.br/cdn/shop/products/descanso-para-panela-em-madeira-design-casa-cozinha-11-descanso-para-panela-design-casa-863695.png?v=1695305512&width=1400", link: "https://mpago.la/1CjLYVW" },
-      { id: 17, nome: "Escorredor de louça", preco: "R$ 76,55", img: "https://cdn.awsli.com.br/600x450/2378/2378066/produto/246804221/1058-amb-0jx4ilt5d9.jpg", link: "https://mpago.la/2Rr5qsU" },
-      { id: 18, nome: "Conjunto de panos de prato", preco: "R$ 59,89", img: "https://images.tcdn.com.br/img/img_prod/548599/kit_pano_de_pratos_3_pecas_tea_time_5061_1_634a5d34c3b7b1c161fb4268664f48ef_20260525163755.jpg", link: "https://mpago.la/2nv4moe" },
-      { id: 19, nome: "Conjunto de panos para pia", preco: "R$ 29,90", img: "https://m.media-amazon.com/images/I/61zaSGbTV4L._AC_UF894,1000_QL80_AIweblab1381794,T1_.jpg", link: "https://mpago.la/1sv3NqP" },
-      { id: 20, nome: "Conjunto Açucareiro e Saleiro", preco: "R$ 37,90", img: "https://down-br.img.susercontent.com/file/br-11134207-7qukw-liueff4mb4j4cf", link: "https://mpago.la/16eyiKb" },
-      { id: 21, nome: "Lixeira 5 litros Inox", preco: "R$ 65,90", img: "https://cdn.leroymerlin.com.br/products/lixeira_retangular_5_litros_inox_cinza_vonder_1571104002_36b8_600x600.jpg", link: "https://mpago.la/1aiDs9t" },
-      { id: 22, nome: "Lixeira 5 litros Inox (Segunda unidade)", preco: "R$ 65,90", img: "https://cdn.leroymerlin.com.br/products/lixeira_retangular_5_litros_inox_cinza_vonder_1571104002_36b8_600x600.jpg", link: "https://mpago.la/33xwJvQ" },
-      { id: 23, nome: "Jogo de panelas", preco: "R$ 345,35", img: "https://checkout.supremeinox.com.br/resizer/view/false/false/true/false/7623.jpg", link: "https://mpago.la/1466i3C" },
-      { id: 24, nome: "Panela de pressão 2 litros (pequena)", preco: "R$ 79,80", img: "https://m.magazineluiza.com.br/a-static/420x420/panela-de-pressao-polida-2-litros-eirilar/paizaostore/13211/5c15c7d2733b4ce10835b8ec89ff5b3e.jpeg", link: "https://mpago.la/2JLywSa" },
-      { id: 25, nome: "Panela de pressão 7 litros (grande)", preco: "R$ 198,87", img: "https://http2.mlstatic.com/D_NQ_NP_718300-MLB110558556375_042026-O.webp", link: "https://mpago.la/1wy6P5u" },
-      { id: 26, nome: "Conjunto de frigideiras antiaderente", preco: "R$ 119,90", img: "https://d296pbmv9m7g8v.cloudfront.net/Custom/Content/Products/10/65/1065255_conjunto-de-frigideiras-tramontina-20297-caribe-em-aluminio-3-pecas-10009187_m10_639213643650157428.webp", link: "https://mpago.la/2Uuh68S" },
-      { id: 27, nome: "Kit de utensílios de cozinha", preco: "R$ 76,54", img: "https://images.tcdn.com.br/img/img_prod/479528/kit_utensilios_para_cozinha_em_aco_inox_6_pecas_1769_1_e5b0a557e69bf491fa4f14f8a13b02d9_20250521183622.jpg", link: "https://mpago.la/2TH5BNR" },
-      { id: 28, nome: "Garrafa térmica 1 litros", preco: "R$ 71,95", img: "https://www.dutramaquinas.com.br/shared/img/produto/alta/513312_garrafa_termica_de_pressao_1_0_litro_inox_lumina.webp", link: "https://mpago.la/2wuFxcs" },
-      { id: 29, nome: "Jarra de suco 1,5 litros", preco: "R$ 29,90", img: "https://acdn-us.mitiendanube.com/stores/003/231/886/products/najv1l-6-e25ffbb0a9f21201b017341064128434-1024-1024.webp", link: "https://mpago.la/2uy7daY" },
-      { id: 30, nome: "Jogo de facas", preco: "R$ 89,63", img: "https://s3.amazonaws.com/assets.tramontina.com.br/upload/tramon/imagens/CUT/23899060PDM001G.jpg", link: "https://mpago.la/2TjDWnJ" },
-      { id: 31, nome: "Tábua de corte Inox", preco: "R$ 45,59", img: "https://m.media-amazon.com/images/I/614C6VULMxL.jpg", link: "https://mpago.la/2yaDNWC" },
-      { id: 32, nome: "Tábua de corte de vidro", preco: "R$ 31,52", img: "https://cdn.awsli.com.br/274/274010/produto/291249107/04bce9686d50ebdd8b2e3d1549ef87bb-6qkplxy03m.jpeg", link: "https://mpago.la/1MT6pDS" },
-      { id: 33, nome: "Fatiador e ralador", preco: "R$ 36,12", img: "https://images.tcdn.com.br/img/img_prod/684826/ralador_fatiador_retro_3_laminas_art_house_49359_1_1371c9b3e22b79bb3cb2a66e113fca5c.jpg", link: "https://mpago.la/2pLwMb8" },
-      { id: 34, nome: "Conjunto de conchas", preco: "R$ 37,77", img: "https://down-br.img.susercontent.com/file/bb6d1acf70d79452968d766876945bc0", link: "https://mpago.la/2iKWwY1" },
-      { id: 35, nome: "Copo medidor + funil", preco: "R$ 38,90", img: "https://m.media-amazon.com/images/I/614XUNjAMCL.jpg", link: "https://mpago.la/12w6FfW" },
-      { id: 36, nome: "Kit escorredor de massas", preco: "R$ 46,00", img: "https://m.media-amazon.com/images/I/6102xbUSniL.jpg", link: "https://mpago.la/2TFABXh" },
-      { id: 37, nome: "Conjunto de travessas de vidro", preco: "R$ 132,90", img: "https://i.zst.com.br/thumbs/51/37/16/-1437213397.jpg", link: "https://mpago.la/2f96gPd" },
-      { id: 38, nome: "Conjunto de peneiras", preco: "R$ 24,99", img: "https://m.media-amazon.com/images/I/61eenyGiOHL._AC_UF894,1000_QL80_.jpg", link: "https://mpago.la/22r3EXZ" },
-      { id: 39, nome: "Conjunto de bowls", preco: "R$ 58,00", img: "https://precolandia.vtexassets.com/arquivos/ids/230118-800-450?v=638409216734100000&width=800&height=450&aspect=true", link: "https://mpago.la/2eRVJ7y" },
-      { id: 40, nome: "Saladeira", preco: "R$ 69,99", img: "https://m.media-amazon.com/images/I/712pdmLuGYL.jpg", link: "https://mpago.la/2Jqv4Jx" },
-      { id: 41, nome: "Kit de dispensa para material de limpeza", preco: "R$ 62,45", img: "https://a-static.mlcdn.com.br/420x420/kit-3-dispenser-pote-medidor-hermetico-produtos-limpeza-organizador-lavanderia-15l-ou/magazinegeraiscomercio/ut3470-2/d7b90cf98def7181afb3a22795139828.jpeg", link: "https://mpago.la/1sy2xgy" }
-    ];
+    <!-- Modal PIX -->
+    <div id="pixModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closePixModal()"></div>
+        <div class="relative w-full max-w-md rounded-3xl glass-card p-6 sm:p-8 shadow-2xl z-10 space-y-6 border-amber-500/20">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto text-amber-400">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-2xl font-serif text-slate-100">Presentear com PIX</h3>
+                <p id="modalItemTitle" class="text-xs text-slate-400 font-light"></p>
+                <p id="modalItemPrice" class="text-2xl font-semibold text-amber-400 mt-1"></p>
+            </div>
 
-    // RENDERIZAR GRID DE PRESENTES
-    const giftGrid = document.getElementById('giftGrid');
-    presentes.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'gift-card';
-      card.innerHTML = `
-        <img src="${item.img}" alt="${item.nome}" class="gift-img">
-        <div class="gift-info">
-          <div>
-            <div class="gift-title">${item.nome}</div>
-            <div class="gift-price">${item.preco}</div>
-          </div>
-          <div class="gift-actions">
-            <button class="btn-gift" onclick="abrirModal('${item.nome}', '${item.preco}')">PIX</button>
-            <a href="${item.link}" target="_blank" class="btn-buy">Comprar</a>
-          </div>
+            <div class="space-y-3">
+                <div class="p-4 rounded-xl bg-black/50 border border-white/10 text-center">
+                    <span class="text-[10px] uppercase tracking-widest text-slate-400 block mb-1">Chave PIX (CPF)</span>
+                    <span class="font-mono text-sm font-semibold text-amber-300 tracking-wider">039.073.732-19</span>
+                </div>
+                <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5 text-xs text-slate-300">
+                    <div class="flex justify-between"><span class="text-slate-500">Titular:</span><span>Louise Naely Ferreira Carneiro</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Instituição:</span><span>Mercado Pago</span></div>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <button onclick="copyPix()" id="copyBtn" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs tracking-widest uppercase transition-all btn-glow flex items-center justify-center gap-2">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    <span id="copyBtnText">Copiar Chave PIX</span>
+                </button>
+                <button onclick="closePixModal()" class="w-full py-2.5 text-xs text-slate-400 hover:text-slate-200 transition-colors">Fechar</button>
+            </div>
         </div>
-      `;
-      giftGrid.appendChild(card);
-    });
+    </div>
 
-    // VALIDAÇÃO DE NOME + ENVIO PARA O WHATSAPP
-    function validarRSVP(event) {
-      event.preventDefault();
-      const input = document.getElementById('fullName');
-      const errorMsg = document.getElementById('nameError');
-      const form = document.getElementById('rsvpForm');
-      const successBox = document.getElementById('successBox');
+    <!-- Script de Lógica -->
+    <script>
+        const presentes = [
+            { id: 1, nome: "Conjunto de 6 pratos rasos", preco: "R$ 64,99", img: "https://http2.mlstatic.com/D_NQ_NP_2X_609801-MLA114998535180_082026-F.webp", link: "https://mpago.la/26e3Jj3" },
+            { id: 2, nome: "Conjunto de 6 pratos fundos", preco: "R$ 66,99", img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&q=80", link: "https://mpago.la/2BVQNVJ" },
+            { id: 3, nome: "Conjunto de 6 copos baixos 300ml", preco: "R$ 26,00", img: "https://lojakaster.cdn.magazord.com.br/img/2025/02/produto/25140/46243-jogo-de-6-copos-baixo-300ml-karat-pasabahce.png", link: "https://mpago.la/1f6gJzT" },
+            { id: 4, nome: "Conjunto de 6 copos altos", preco: "R$ 36,99", img: "https://down-br.img.susercontent.com/file/br-11134207-820mf-mou127oazp4z76", link: "https://mpago.la/1Kn2gcs" },
+            { id: 5, nome: "Conjunto de 6 copos de vidro 450ml", preco: "R$ 41,80", img: "https://d1ax7qwanmokr7.cloudfront.net/Custom/Content/Products/61/84/6184_jogo-6-copos-de-vidro-alto-rosa-ripado-linhare-450ml_m6_638393719526421260.webp", link: "https://mpago.la/29btsXb" },
+            { id: 6, nome: "Conjunto de 6 taças de vidro 380ml", preco: "R$ 70,15", img: "https://down-br.img.susercontent.com/file/br-11134207-81ztc-mk1oowdk1k3md2", link: "https://mpago.la/2La7NJF" },
+            { id: 7, nome: "Jogo Com 4 Canecas De 260ml", preco: "R$ 77,45", img: "https://mundoza.cdn.magazord.com.br/img/2024/06/produto/11750/4.png?ims=600x600", link: "https://mpago.la/1QGVUiM" },
+            { id: 8, nome: "Conjunto de xícaras com pires 220ml", preco: "R$ 174,21", img: "https://cepilho.com.br/wp-content/uploads/2022/08/DSC_0170-2.jpg", link: "https://mpago.la/1zGSD94" },
+            { id: 9, nome: "Conjunto mesa posta em acrílico", preco: "R$ 90,58", img: "https://http2.mlstatic.com/D_NQ_NP_946231-MLB110939039648_052026-O-kit-5-boleira-ctampa-mesa-posta-glamour-acrilico--plasutil.webp", link: "https://mpago.la/2fM5Rbz" },
+            { id: 10, nome: "Conjunto faqueiro (prata) Tramontina", preco: "R$ 59,81", img: "https://cdn.awsli.com.br/1354/1354913/produto/101255991bd97fe9b21.jpg", link: "https://mpago.la/1NGkFds" },
+            { id: 11, nome: "Jogo de sobremesas", preco: "R$ 27,99", img: "https://acdn-us.mitiendanube.com/stores/001/697/998/products/6713569a-6448-4e89-9782-5a035f15b83d-a62461536c7c3970e517150295058500-480-0.webp", link: "https://mpago.la/2yWwN1o" },
+            { id: 12, nome: "Conjunto de potes herméticos para mantimentos", preco: "R$ 112,81", img: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m1u4cywv42i2bd", link: "https://mpago.la/2P8VG35" },
+            { id: 13, nome: "Conjunto de potes herméticos de vidro (para comida)", preco: "R$ 92,45", img: "https://cdn.noxcommerce.com.br/media/mixutilidades/catalogo/produto/c/o/conjunto-3-potes-hermeticos-de-vidro-370-640-1000ml-classic-kitchen-1-cda681c2c6.webp", link: "https://mpago.la/2P7ZkyH" },
+            { id: 14, nome: "Kit 10 potes transparentes 500ml", preco: "R$ 35,99", img: "https://m.media-amazon.com/images/I/51P6HtzVwQL._AC_UF894,1000_QL80_.jpg", link: "https://mpago.la/2P9fUVc" },
+            { id: 15, nome: "Conjunto porta condimentos", preco: "R$ 35,99", img: "https://images.tcdn.com.br/img/img_prod/841126/kit_porta_temperos_com_16_potes_e_base_giratoria_em_inox_rose_15381_2_47a463a9d5a2249d562d5edbbd2896c1.jpg", link: "https://mpago.la/2sefovK" },
+            { id: 16, nome: "Conjunto de descanso de panelas", preco: "R$ 32,95", img: "https://designecasa.com.br/cdn/shop/products/descanso-para-panela-em-madeira-design-casa-cozinha-11-descanso-para-panela-design-casa-863695.png?v=1695305512&width=1400", link: "https://mpago.la/1CjLYVW" },
+            { id: 17, nome: "Escorredor de louça", preco: "R$ 76,55", img: "https://cdn.awsli.com.br/600x450/2378/2378066/produto/246804221/1058-amb-0jx4ilt5d9.jpg", link: "https://mpago.la/2Rr5qsU" },
+            { id: 18, nome: "Conjunto de panos de prato", preco: "R$ 59,89", img: "https://images.tcdn.com.br/img/img_prod/548599/kit_pano_de_pratos_3_pecas_tea_time_5061_1_634a5d34c3b7b1c161fb4268664f48ef_20260525163755.jpg", link: "https://mpago.la/2nv4moe" },
+            { id: 19, nome: "Conjunto de panos para pia", preco: "R$ 29,90", img: "https://m.media-amazon.com/images/I/61zaSGbTV4L._AC_UF894,1000_QL80_AIweblab1381794,T1_.jpg", link: "https://mpago.la/1sv3NqP" },
+            { id: 20, nome: "Conjunto Açucareiro e Saleiro", preco: "R$ 37,90", img: "https://down-br.img.susercontent.com/file/br-11134207-7qukw-liueff4mb4j4cf", link: "https://mpago.la/16eyiKb" },
+            { id: 21, nome: "Lixeira 5 litros Inox", preco: "R$ 65,90", img: "https://cdn.leroymerlin.com.br/products/lixeira_retangular_5_litros_inox_cinza_vonder_1571104002_36b8_600x600.jpg", link: "https://mpago.la/1aiDs9t" },
+            { id: 22, nome: "Lixeira 5 litros Inox (Segunda unidade)", preco: "R$ 65,90", img: "https://cdn.leroymerlin.com.br/products/lixeira_retangular_5_litros_inox_cinza_vonder_1571104002_36b8_600x600.jpg", link: "https://mpago.la/33xwJvQ" },
+            { id: 23, nome: "Jogo de panelas", preco: "R$ 345,35", img: "https://checkout.supremeinox.com.br/resizer/view/false/false/true/false/7623.jpg", link: "https://mpago.la/1466i3C" },
+            { id: 24, nome: "Panela de pressão 2 litros (pequena)", preco: "R$ 79,80", img: "https://m.magazineluiza.com.br/a-static/420x420/panela-de-pressao-polida-2-litros-eirilar/paizaostore/13211/5c15c7d2733b4ce10835b8ec89ff5b3e.jpeg", link: "https://mpago.la/2JLywSa" },
+            { id: 25, nome: "Panela de pressão 7 litros (grande)", preco: "R$ 198,87", img: "https://http2.mlstatic.com/D_NQ_NP_718300-MLB110558556375_042026-O.webp", link: "https://mpago.la/1wy6P5u" },
+            { id: 26, nome: "Conjunto de frigideiras antiaderente", preco: "R$ 119,90", img: "https://d296pbmv9m7g8v.cloudfront.net/Custom/Content/Products/10/65/1065255_conjunto-de-frigideiras-tramontina-20297-caribe-em-aluminio-3-pecas-10009187_m10_639213643650157428.webp", link: "https://mpago.la/2Uuh68S" },
+            { id: 27, nome: "Kit de utensílios de cozinha", preco: "R$ 76,54", img: "https://images.tcdn.com.br/img/img_prod/479528/kit_utensilios_para_cozinha_em_aco_inox_6_pecas_1769_1_e5b0a557e69bf491fa4f14f8a13b02d9_20250521183622.jpg", link: "https://mpago.la/2TH5BNR" },
+            { id: 28, nome: "Garrafa térmica 1 litros", preco: "R$ 71,95", img: "https://www.dutramaquinas.com.br/shared/img/produto/alta/513312_garrafa_termica_de_pressao_1_0_litro_inox_lumina.webp", link: "https://mpago.la/2wuFxcs" },
+            { id: 29, nome: "Jarra de suco 1,5 litros", preco: "R$ 29,90", img: "https://acdn-us.mitiendanube.com/stores/003/231/886/products/najv1l-6-e25ffbb0a9f21201b017341064128434-1024-1024.webp", link: "https://mpago.la/2uy7daY" },
+            { id: 30, nome: "Jogo de facas", preco: "R$ 89,63", img: "https://s3.amazonaws.com/assets.tramontina.com.br/upload/tramon/imagens/CUT/23899060PDM001G.jpg", link: "https://mpago.la/2TjDWnJ" },
+            { id: 31, nome: "Tábua de corte Inox", preco: "R$ 45,59", img: "https://m.media-amazon.com/images/I/614C6VULMxL.jpg", link: "https://mpago.la/2yaDNWC" },
+            { id: 32, nome: "Tábua de corte de vidro", preco: "R$ 31,52", img: "https://cdn.awsli.com.br/274/274010/produto/291249107/04bce9686d50ebdd8b2e3d1549ef87bb-6qkplxy03m.jpeg", link: "https://mpago.la/1MT6pDS" },
+            { id: 33, nome: "Fatiador e ralador", preco: "R$ 36,12", img: "https://images.tcdn.com.br/img/img_prod/684826/ralador_fatiador_retro_3_laminas_art_house_49359_1_1371c9b3e22b79bb3cb2a66e113fca5c.jpg", link: "https://mpago.la/2pLwMb8" },
+            { id: 34, nome: "Conjunto de conchas", preco: "R$ 37,77", img: "https://down-br.img.susercontent.com/file/bb6d1acf70d79452968d766876945bc0", link: "https://mpago.la/2iKWwY1" },
+            { id: 35, nome: "Copo medidor + funil", preco: "R$ 38,90", img: "https://m.media-amazon.com/images/I/614XUNjAMCL.jpg", link: "https://mpago.la/12w6FfW" },
+            { id: 36, nome: "Kit escorredor de massas", preco: "R$ 46,00", img: "https://m.media-amazon.com/images/I/6102xbUSniL.jpg", link: "https://mpago.la/2TFABXh" },
+            { id: 37, nome: "Conjunto de travessas de vidro", preco: "R$ 132,90", img: "https://i.zst.com.br/thumbs/51/37/16/-1437213397.jpg", link: "https://mpago.la/2f96gPd" },
+            { id: 38, nome: "Conjunto de peneiras", preco: "R$ 24,99", img: "https://m.media-amazon.com/images/I/61eenyGiOHL._AC_UF894,1000_QL80_.jpg", link: "https://mpago.la/22r3EXZ" },
+            { id: 39, nome: "Conjunto de bowls", preco: "R$ 58,00", img: "https://precolandia.vtexassets.com/arquivos/ids/230118-800-450?v=638409216734100000&width=800&height=450&aspect=true", link: "https://mpago.la/2eRVJ7y" },
+            { id: 40, nome: "Saladeira", preco: "R$ 69,99", img: "https://m.media-amazon.com/images/I/712pdmLuGYL.jpg", link: "https://mpago.la/2Jqv4Jx" },
+            { id: 41, nome: "Kit de dispensa para material de limpeza", preco: "R$ 62,45", img: "https://a-static.mlcdn.com.br/420x420/kit-3-dispenser-pote-medidor-hermetico-produtos-limpeza-organizador-lavanderia-15l-ou/magazinegeraiscomercio/ut3470-2/d7b90cf98def7181afb3a22795139828.jpeg", link: "https://mpago.la/1sy2xgy" }
+        ];
 
-      const valor = input.value.trim();
-      const partesNome = valor.split(/\s+/).filter(part => part.length > 0);
+        function renderGifts() {
+            const grid = document.getElementById('giftsGrid');
+            grid.innerHTML = presentes.map(item => `
+                <div class="group rounded-2xl glass-card overflow-hidden flex flex-col justify-between transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-52 overflow-hidden bg-slate-950/80">
+                        <img src="${item.img}" alt="${item.nome}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80"></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4 relative z-10">
+                        <div>
+                            <h3 class="font-medium text-slate-200 text-sm leading-snug">${item.nome}</h3>
+                            <p class="text-xl font-semibold text-amber-400 mt-2 font-mono">${item.preco}</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2.5 pt-3 border-t border-white/5">
+                            <button onclick="openPixModal('${item.nome.replace(/'/g, "\\'")}', '${item.preco}')" class="py-2.5 px-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/10 text-slate-300 hover:text-amber-300 border border-white/10 text-xs font-medium transition-all">PIX</button>
+                            <a href="${item.link}" target="_blank" class="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">Comprar <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
 
-      if (partesNome.length < 2) {
-        errorMsg.style.display = 'block';
-        input.style.borderColor = '#FF6B6B';
-      } else {
-        errorMsg.style.display = 'none';
-        input.style.borderColor = 'var(--border-gold)';
-        
-        // COLOQUE SEU NÚMERO DE WHATSAPP AQUI (Com DDD, apenas números)
-        const numeroWhatsapp = "559184813781"; 
-        
-        const mensagem = `Olá! Confirmo minha presença no Jantar Cerimonial de Louise & Ewerton.\n\n*Nome:* ${valor}`;
-        const urlWhatsapp = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagem)}`;
+        function handleRSVP(e) {
+            e.preventDefault();
+            const name = document.getElementById('guestName').value.trim();
+            const error = document.getElementById('errorMsg');
+            if (name.split(/\s+/).length < 2) {
+                error.textContent = "Por favor, informe seu nome e sobrenome.";
+                error.classList.remove('hidden');
+                return;
+            }
+            error.classList.add('hidden');
+            window.open(`https://wa.me/559184813781?text=${encodeURIComponent('Olá! Confirmo minha presença no Jantar Cerimonial de Louise & Ewerton.\n\n*Convidado:* ' + name)}`, '_blank');
+        }
 
-        form.style.display = 'none';
-        successBox.style.display = 'block';
+        function openPixModal(nome, preco) {
+            document.getElementById('modalItemTitle').textContent = nome;
+            document.getElementById('modalItemPrice').textContent = preco;
+            document.getElementById('pixModal').classList.remove('hidden');
+        }
 
-        // Redireciona para o WhatsApp após 1 segundo
-        setTimeout(() => {
-          window.open(urlWhatsapp, '_blank');
-        }, 1000);
-      }
-    }
+        function closePixModal() {
+            document.getElementById('pixModal').classList.add('hidden');
+        }
 
-    // LÓGICA DO MODAL PIX
-    function abrirModal(nome, preco) {
-      document.getElementById('modalGiftName').innerText = nome;
-      document.getElementById('modalGiftPrice').innerText = preco;
-      document.getElementById('pixModal').style.display = 'flex';
-    }
+        function copyPix() {
+            navigator.clipboard.writeText("039.073.732-19");
+            document.getElementById('copyBtnText').textContent = "Chave Copiada!";
+            setTimeout(() => { document.getElementById('copyBtnText').textContent = "Copiar Chave PIX"; }, 2500);
+        }
 
-    function fecharModal() {
-      document.getElementById('pixModal').style.display = 'none';
-    }
+        /* Lógica do Contador Regressivo */
+        const targetDate = new Date("January 8, 2027 09:00:00").getTime();
 
-    function copiarPix() {
-      const pixKey = document.getElementById('pixKey').innerText;
-      navigator.clipboard.writeText(pixKey).then(() => {
-        alert('Chave PIX (CPF) copiada com sucesso!');
-      });
-    }
-  </script>
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("cd-days").textContent = String(days).padStart(2, '0');
+                document.getElementById("cd-hours").textContent = String(hours).padStart(2, '0');
+                document.getElementById("cd-minutes").textContent = String(minutes).padStart(2, '0');
+                document.getElementById("cd-seconds").textContent = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById("cd-days").textContent = "00";
+                document.getElementById("cd-hours").textContent = "00";
+                document.getElementById("cd-minutes").textContent = "00";
+                document.getElementById("cd-seconds").textContent = "00";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        renderGifts();
+    </script>
 </body>
 </html>
