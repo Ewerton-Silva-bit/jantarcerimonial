@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jantar Cerimonial | Louise & Ewerton</title>
+    <title>Louise & Ewerton</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -27,11 +27,17 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
         .font-serif { font-family: 'Cormorant Garamond', serif; }
 
-        /* Card de Vidro Luxuoso */
         .glass-card {
+            transition: all 0.4s ease;
+        }
+
+        .dark .glass-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -39,84 +45,120 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         }
 
-        .glass-card:hover {
+        html:not(.dark) .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(217, 119, 6, 0.15);
+            box-shadow: 0 20px 40px rgba(217, 119, 6, 0.06);
+        }
+
+        .dark .glass-card:hover {
             border-color: rgba(245, 158, 11, 0.3);
             box-shadow: 0 20px 40px rgba(245, 158, 11, 0.08);
         }
 
-        /* Iluminação Dourada no Botão */
+        html:not(.dark) .glass-card:hover {
+            border-color: rgba(217, 119, 6, 0.35);
+            box-shadow: 0 20px 40px rgba(217, 119, 6, 0.12);
+        }
+
         .btn-glow {
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
         }
         .btn-glow:hover {
             box-shadow: 0 0 35px rgba(245, 158, 11, 0.45);
         }
+
+        /* Adaptação do Brasão para Modo Claro e Escuro */
+        .brasao-img {
+            transition: filter 0.4s ease, transform 0.5s ease;
+        }
+
+        /* No modo claro, inverte os tons para a logo ficar escura */
+        html:not(.dark) .brasao-img {
+            filter: invert(0.85) contrast(1.3) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+        }
+
+        /* No modo escuro, mantém clara com efeito brilhante */
+        .dark .brasao-img {
+            filter: drop-shadow(0 10px 25px rgba(245, 158, 11, 0.2));
+        }
     </style>
 </head>
-<body class="min-h-screen bg-[#030712] text-slate-100 antialiased p-4 sm:p-8 md:p-12 relative overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-200">
+<body class="min-h-screen bg-[#faf8f5] dark:bg-[#030712] text-slate-800 dark:text-slate-100 antialiased p-3 sm:p-6 md:p-10 relative overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-700 dark:selection:text-amber-200">
 
-    <!-- Ambient Lights (Aura de Fundo) -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-gradient-to-b from-amber-500/15 via-indigo-500/10 to-transparent blur-[160px] pointer-events-none rounded-full"></div>
+    <!-- Ambient Lights -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-gradient-to-b from-amber-400/20 via-amber-200/10 dark:from-amber-500/15 dark:via-indigo-500/10 to-transparent blur-[160px] pointer-events-none rounded-full"></div>
 
     <!-- Main Container -->
-    <div class="max-w-6xl mx-auto glass-card rounded-[2.5rem] overflow-hidden relative z-10 my-4">
+    <div class="max-w-6xl mx-auto glass-card rounded-[2.5rem] overflow-hidden relative z-10 my-2">
 
-        <div class="p-6 sm:p-12 md:p-16 space-y-16">
+        <!-- Theme Switcher Top Bar (Espaçamento reduzido no topo) -->
+        <div class="flex justify-end px-6 pt-4 pb-0">
+            <button 
+                onclick="toggleTheme()" 
+                id="themeToggleBtn"
+                class="p-2.5 rounded-full bg-slate-200/60 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-700 dark:text-amber-400 hover:scale-105 active:scale-95 transition-all shadow-sm"
+                aria-label="Alternar Tema"
+                title="Alternar Modo Claro/Escuro"
+            >
+                <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+                <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+            </button>
+        </div>
+
+        <div class="p-6 sm:p-12 md:p-16 space-y-16 pt-0">
             
             <!-- Hero Section -->
-<header class="text-center space-y-6 max-w-2xl mx-auto">
-    <div class="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium tracking-[0.25em] uppercase">
-        Recepção de Gala
-    </div>
+            <header class="text-center space-y-4 max-w-2xl mx-auto">
+                <!-- Brasão aproxima-se do topo com -mt-4 -->
+                <div class="flex justify-center -mt-4 sm:-mt-6">
+                    <img 
+                        src="logo.png" 
+                        alt="Brasão Casamento - Louise & Ewerton" 
+                        class="brasao-img w-44 sm:w-60 h-auto object-contain hover:scale-105"
+                    >
+                </div>
 
-                <!-- Brasão / Logo -->
-               <!-- Brasão / Logo com Fundo Transparente Integrado -->
-              <div class="flex justify-center pt-2">
-                <img 
-                src="image.png" 
-                alt="Logo Chá de Casa Nova - Louise & Ewerton" 
-                class="w-56 sm:w-72 h-auto object-contain mix-blend-screen drop-shadow-[0_10px_20px_rgba(245,158,11,0.15)]"
-                >
-              </div>
-
-                <h1 class="text-5xl sm:text-7xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 font-serif">
+                <h1 class="text-5xl sm:text-7xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 dark:from-white dark:via-slate-100 dark:to-slate-400 font-serif">
                     Louise & Ewerton
                 </h1>
 
-                <!-- Texto Bíblico Substituído -->
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-serif italic max-w-xl mx-auto">
+                <!-- Texto Bíblico -->
+                <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-serif italic max-w-xl mx-auto">
                     "Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto, e o Santo de Israel o criou."
-                    <span class="block text-xs font-sans not-italic text-amber-400/90 mt-2 tracking-widest uppercase">Isaías 41:20</span>
+                    <span class="block text-xs font-sans not-italic text-amber-600 dark:text-amber-400/90 mt-2 tracking-widest uppercase">— Isaías 41:20</span>
                 </p>
             </header>
 
-            <!-- Bento Info Actualized -->
+            <!-- Bento Info -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                <div class="p-6 rounded-2xl glass-card flex items-center gap-4 transition-all duration-300">
-                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <div class="p-6 rounded-2xl glass-card flex items-center gap-4">
+                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
                         <i data-lucide="calendar" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Data Especial</p>
-                        <p class="text-base font-medium text-slate-100 mt-0.5">08 de Janeiro de 2027 às 09h</p>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">Data Especial</p>
+                        <p class="text-base font-medium text-slate-900 dark:text-slate-100 mt-0.5">08 de Janeiro de 2027 às 09h</p>
                     </div>
                 </div>
-                <div class="p-6 rounded-2xl glass-card flex items-center gap-4 transition-all duration-300">
-                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <div class="p-6 rounded-2xl glass-card flex items-center gap-4">
+                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
                         <i data-lucide="clock" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Recepção</p>
-                        <p class="text-base font-medium text-slate-100 mt-0.5">20:00 Horas</p>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">Horário</p>
+                        <p class="text-base font-medium text-slate-900 dark:text-slate-100 mt-0.5">20:00 Horas</p>
                     </div>
                 </div>
-                <div class="p-6 rounded-2xl glass-card flex items-center gap-4 transition-all duration-300">
-                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <div class="p-6 rounded-2xl glass-card flex items-center gap-4">
+                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
                         <i data-lucide="map-pin" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Localização</p>
-                        <p class="text-base font-medium text-slate-100 mt-0.5">Casa da Louise e Ewerton</p>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">Localização</p>
+                        <p class="text-base font-medium text-slate-900 dark:text-slate-100 mt-0.5">Casa da Louise e Ewerton</p>
                     </div>
                 </div>
             </div>
@@ -125,8 +167,8 @@
             <div class="rounded-3xl glass-card p-8 sm:p-12 relative overflow-hidden">
                 <div class="max-w-xl mx-auto text-center space-y-6 relative z-10">
                     <div class="space-y-2">
-                        <h2 class="text-3xl font-serif text-slate-100 tracking-wide">Confirmação de Presença</h2>
-                        <p class="text-xs text-slate-400 font-light">Por favor, informe seu nome completo para confirmar sua presença.</p>
+                        <h2 class="text-3xl font-serif text-slate-900 dark:text-slate-100 tracking-wide">Confirmação de Presença</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-light">Por favor, informe seu nome completo para confirmar sua presença.</p>
                     </div>
 
                     <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-4 pt-2">
@@ -135,9 +177,9 @@
                                 type="text" 
                                 id="guestName"
                                 placeholder="Nome e Sobrenome (Ex: Maria Silva)"
-                                class="w-full px-5 py-4 rounded-xl bg-black/40 border border-white/10 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all text-sm"
+                                class="w-full px-5 py-4 rounded-xl bg-white/70 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all text-sm"
                             />
-                            <p id="errorMsg" class="text-rose-400 text-xs text-left mt-2 pl-1 font-medium hidden"></p>
+                            <p id="errorMsg" class="text-rose-500 dark:text-rose-400 text-xs text-left mt-2 pl-1 font-medium hidden"></p>
                         </div>
                         <button 
                             type="submit"
@@ -153,41 +195,48 @@
             <!-- Contador Regressivo -->
             <div class="rounded-3xl glass-card p-8 sm:p-10 text-center space-y-6 border-amber-500/20">
                 <div class="space-y-2">
-                    <div class="inline-flex items-center gap-2 text-amber-400 text-[11px] font-semibold uppercase tracking-widest">
+                    <div class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 text-[11px] font-semibold uppercase tracking-widest">
                         <i data-lucide="hourglass" class="w-4 h-4"></i>
                         <span>Contagem Regressiva</span>
                     </div>
-                    <h3 class="text-2xl sm:text-3xl font-serif text-slate-100">Faltam Poucos Dias Para o Grande Dia</h3>
+                    <h3 class="text-2xl sm:text-3xl font-serif text-slate-900 dark:text-slate-100">Faltam Poucos Dias Para o Grande Dia</h3>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
-                        <span id="cd-days" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
-                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Dias</span>
+                    <div class="p-4 rounded-2xl bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none">
+                        <span id="cd-days" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-600 dark:text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium mt-1 block">Dias</span>
                     </div>
-                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
-                        <span id="cd-hours" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
-                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Horas</span>
+                    <div class="p-4 rounded-2xl bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none">
+                        <span id="cd-hours" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-600 dark:text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium mt-1 block">Horas</span>
                     </div>
-                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
-                        <span id="cd-minutes" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
-                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Minutos</span>
+                    <div class="p-4 rounded-2xl bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none">
+                        <span id="cd-minutes" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-600 dark:text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium mt-1 block">Minutos</span>
                     </div>
-                    <div class="p-4 rounded-2xl bg-black/40 border border-white/5">
-                        <span id="cd-seconds" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-400">00</span>
-                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-medium mt-1 block">Segundos</span>
+                    <div class="p-4 rounded-2xl bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none">
+                        <span id="cd-seconds" class="block text-3xl sm:text-4xl font-bold font-mono text-amber-600 dark:text-amber-400">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium mt-1 block">Segundos</span>
                     </div>
                 </div>
             </div>
 
             <!-- Lista de Presentes -->
             <div class="space-y-8">
-                <div class="text-center sm:text-left space-y-2">
-                    <div class="inline-flex items-center gap-2 text-amber-400 text-[11px] font-semibold uppercase tracking-widest">
-                        <i data-lucide="gift" class="w-4 h-4"></i>
-                        <span>Lista de Presentes</span>
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 dark:border-white/5 pb-4">
+                    <div class="text-center sm:text-left space-y-2">
+                        <div class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 text-[11px] font-semibold uppercase tracking-widest">
+                            <i data-lucide="gift" class="w-4 h-4"></i>
+                            <span>Lista de Presentes</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 dark:text-slate-100">Sugestões de Presentes</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-light">Caso deseje nos presentear, selecione uma opção abaixo.</p>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-serif text-slate-100">Sugestões de Presentes</h2>
-                    <p class="text-slate-400 text-xs sm:text-sm font-light">Caso deseje nos presentear, selecione uma opção abaixo.</p>
+                    <div class="text-center sm:text-right">
+                        <span id="giftCounter" class="text-xs font-mono px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 font-semibold">
+                            Disponíveis: 41
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Grid de Presentes -->
@@ -197,8 +246,8 @@
         </div>
 
         <!-- Footer -->
-        <footer class="px-6 py-8 border-t border-white/5 bg-black/40 text-center space-y-2 backdrop-blur-md">
-            <p class="text-[11px] text-slate-400 font-serif tracking-[0.2em] uppercase">
+        <footer class="px-6 py-8 border-t border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-black/40 text-center space-y-2 backdrop-blur-md">
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 font-serif tracking-[0.2em] uppercase">
                 Toda honra e glória é dada a Deus • 2027
             </p>
             <div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
@@ -210,40 +259,55 @@
 
     <!-- Modal PIX -->
     <div id="pixModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closePixModal()"></div>
-        <div class="relative w-full max-w-md rounded-3xl glass-card p-6 sm:p-8 shadow-2xl z-10 space-y-6 border-amber-500/20">
+        <div class="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md" onclick="closePixModal()"></div>
+        <div class="relative w-full max-w-md rounded-3xl glass-card p-6 sm:p-8 shadow-2xl z-10 space-y-6 border-amber-500/20 bg-white dark:bg-[#0b0f19]">
             <div class="text-center space-y-2">
-                <div class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto text-amber-400">
+                <div class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto text-amber-600 dark:text-amber-400">
                     <i data-lucide="sparkles" class="w-5 h-5"></i>
                 </div>
-                <h3 class="text-2xl font-serif text-slate-100">Presentear com PIX</h3>
-                <p id="modalItemTitle" class="text-xs text-slate-400 font-light"></p>
-                <p id="modalItemPrice" class="text-2xl font-semibold text-amber-400 mt-1"></p>
+                <h3 class="text-2xl font-serif text-slate-900 dark:text-slate-100">Presentear com PIX</h3>
+                <p id="modalItemTitle" class="text-xs text-slate-500 dark:text-slate-400 font-light"></p>
+                <p id="modalItemPrice" class="text-2xl font-semibold text-amber-600 dark:text-amber-400 mt-1"></p>
             </div>
 
             <div class="space-y-3">
-                <div class="p-4 rounded-xl bg-black/50 border border-white/10 text-center">
-                    <span class="text-[10px] uppercase tracking-widest text-slate-400 block mb-1">Chave PIX (CPF)</span>
-                    <span class="font-mono text-sm font-semibold text-amber-300 tracking-wider">039.073.732-19</span>
+                <div class="p-4 rounded-xl bg-slate-100 dark:bg-black/50 border border-slate-200 dark:border-white/10 text-center">
+                    <span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 block mb-1">Chave PIX (CPF)</span>
+                    <span class="font-mono text-sm font-semibold text-amber-700 dark:text-amber-300 tracking-wider">039.073.732-19</span>
                 </div>
-                <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex justify-between"><span class="text-slate-500">Titular:</span><span>Louise Naely Ferreira Carneiro</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Instituição:</span><span>Mercado Pago</span></div>
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
+                    <div class="flex justify-between"><span class="text-slate-400 dark:text-slate-500">Titular:</span><span>Louise Naely Ferreira Carneiro</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400 dark:text-slate-500">Instituição:</span><span>Mercado Pago</span></div>
                 </div>
             </div>
 
             <div class="space-y-2">
                 <button onclick="copyPix()" id="copyBtn" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs tracking-widest uppercase transition-all btn-glow flex items-center justify-center gap-2">
                     <i data-lucide="copy" class="w-4 h-4"></i>
-                    <span id="copyBtnText">Copiar Chave PIX</span>
+                    <span id="copyBtnText">Copiar Chave e Confirmar</span>
                 </button>
-                <button onclick="closePixModal()" class="w-full py-2.5 text-xs text-slate-400 hover:text-slate-200 transition-colors">Fechar</button>
+                <button onclick="closePixModal()" class="w-full py-2.5 text-xs text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">Cancelar</button>
             </div>
         </div>
     </div>
 
     <!-- Script de Lógica -->
     <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
         const presentes = [
             { id: 1, nome: "Conjunto de 6 pratos rasos", preco: "R$ 64,99", img: "https://http2.mlstatic.com/D_NQ_NP_2X_609801-MLA114998535180_082026-F.webp", link: "https://mpago.la/26e3Jj3" },
             { id: 2, nome: "Conjunto de 6 pratos fundos", preco: "R$ 66,99", img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&q=80", link: "https://mpago.la/2BVQNVJ" },
@@ -288,26 +352,64 @@
             { id: 41, nome: "Kit de dispensa para material de limpeza", preco: "R$ 62,45", img: "https://a-static.mlcdn.com.br/420x420/kit-3-dispenser-pote-medidor-hermetico-produtos-limpeza-organizador-lavanderia-15l-ou/magazinegeraiscomercio/ut3470-2/d7b90cf98def7181afb3a22795139828.jpeg", link: "https://mpago.la/1sy2xgy" }
         ];
 
+        let currentActiveItem = null;
+
+        function getPurchasedGifts() {
+            return JSON.parse(localStorage.getItem('purchased_gifts') || '[]');
+        }
+
+        function markGiftAsPurchased(id) {
+            const purchased = getPurchasedGifts();
+            if (!purchased.includes(id)) {
+                purchased.push(id);
+                localStorage.setItem('purchased_gifts', JSON.stringify(purchased));
+                renderGifts();
+            }
+        }
+
+        function buyGift(id, link) {
+            markGiftAsPurchased(id);
+            window.open(link, '_blank');
+        }
+
         function renderGifts() {
+            const purchased = getPurchasedGifts();
+            const availableGifts = presentes.filter(item => !purchased.includes(item.id));
             const grid = document.getElementById('giftsGrid');
-            grid.innerHTML = presentes.map(item => `
-                <div class="group rounded-2xl glass-card overflow-hidden flex flex-col justify-between transition-all duration-500 hover:-translate-y-1">
-                    <div class="relative h-52 overflow-hidden bg-slate-950/80">
-                        <img src="${item.img}" alt="${item.nome}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80"></div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4 relative z-10">
-                        <div>
-                            <h3 class="font-medium text-slate-200 text-sm leading-snug">${item.nome}</h3>
-                            <p class="text-xl font-semibold text-amber-400 mt-2 font-mono">${item.preco}</p>
+            const counter = document.getElementById('giftCounter');
+
+            counter.textContent = `Disponíveis: ${availableGifts.length}`;
+
+            if (availableGifts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto text-amber-500">
+                            <i data-lucide="sparkles" class="w-8 h-8"></i>
                         </div>
-                        <div class="grid grid-cols-2 gap-2.5 pt-3 border-t border-white/5">
-                            <button onclick="openPixModal('${item.nome.replace(/'/g, "\\'")}', '${item.preco}')" class="py-2.5 px-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/10 text-slate-300 hover:text-amber-300 border border-white/10 text-xs font-medium transition-all">PIX</button>
-                            <a href="${item.link}" target="_blank" class="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">Comprar <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+                        <h3 class="text-3xl font-serif text-slate-900 dark:text-slate-100">Todos os Presentes Foram Escolhidos!</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto">Muito obrigado pelo carinho e apoio. Estamos muito felizes em celebrar este momento tão especial juntos!</p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = availableGifts.map(item => `
+                    <div id="gift-card-${item.id}" class="group rounded-2xl glass-card overflow-hidden flex flex-col justify-between transition-all duration-500 hover:-translate-y-1">
+                        <div class="relative h-52 overflow-hidden bg-slate-900/10 dark:bg-slate-950/80">
+                            <img src="${item.img}" alt="${item.nome}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#faf8f5] dark:from-[#030712] via-transparent to-transparent opacity-80"></div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4 relative z-10">
+                            <div>
+                                <h3 class="font-medium text-slate-800 dark:text-slate-200 text-sm leading-snug">${item.nome}</h3>
+                                <p class="text-xl font-semibold text-amber-600 dark:text-amber-400 mt-2 font-mono">${item.preco}</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2.5 pt-3 border-t border-slate-200 dark:border-white/5">
+                                <button onclick="openPixModal(${item.id}, '${item.nome.replace(/'/g, "\\'")}', '${item.preco}')" class="py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-white/[0.03] hover:bg-amber-500/10 text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-300 border border-slate-200 dark:border-white/10 text-xs font-medium transition-all">PIX</button>
+                                <button onclick="buyGift(${item.id}, '${item.link}')" class="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">Comprar <i data-lucide="external-link" class="w-3.5 h-3.5"></i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
             lucide.createIcons();
         }
 
@@ -321,23 +423,31 @@
                 return;
             }
             error.classList.add('hidden');
-            window.open(`https://wa.me/559184813781?text=${encodeURIComponent('Olá! Confirmo minha presença no Jantar Cerimonial de Louise & Ewerton.\n\n*Convidado:* ' + name)}`, '_blank');
+            window.open(`https://wa.me/559184813781?text=${encodeURIComponent('Olá! Confirmo minha presença no casamento de Louise & Ewerton.\n\n*Convidado:* ' + name)}`, '_blank');
         }
 
-        function openPixModal(nome, preco) {
+        function openPixModal(id, nome, preco) {
+            currentActiveItem = id;
             document.getElementById('modalItemTitle').textContent = nome;
             document.getElementById('modalItemPrice').textContent = preco;
             document.getElementById('pixModal').classList.remove('hidden');
         }
 
         function closePixModal() {
+            currentActiveItem = null;
             document.getElementById('pixModal').classList.add('hidden');
         }
 
         function copyPix() {
             navigator.clipboard.writeText("039.073.732-19");
             document.getElementById('copyBtnText').textContent = "Chave Copiada!";
-            setTimeout(() => { document.getElementById('copyBtnText').textContent = "Copiar Chave PIX"; }, 2500);
+            if (currentActiveItem) {
+                markGiftAsPurchased(currentActiveItem);
+            }
+            setTimeout(() => { 
+                document.getElementById('copyBtnText').textContent = "Copiar Chave e Confirmar";
+                closePixModal();
+            }, 1800);
         }
 
         /* Lógica do Contador Regressivo */
